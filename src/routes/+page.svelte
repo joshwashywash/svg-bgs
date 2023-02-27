@@ -37,12 +37,16 @@
 			<input bind:value={skewY} min={0} max={90} type="range" />
 		</label>
 	</details>
+	<footer class="fixed bottom-4 right-4 rounded-lg bg-white/95 p-2">
+		<a class="underline" href="https://josho.dev">josho.dev</a>
+	</footer>
 </main>
 
 <style lang="postcss">
 	input[type='color'] {
 		@apply rounded-lg p-1;
 	}
+
 	label {
 		@apply flex items-center justify-between;
 	}

@@ -10,7 +10,9 @@
 
 <main style:background-color={bgColor} class="relative">
 	<SVG {scale} {rotation} {fgColor} {bgColor} {skewX} {skewY} />
-	<details class="absolute top-4 right-4 flex w-full max-w-sm flex-col rounded-lg bg-white/95 p-2">
+	<details
+		class="absolute top-4 right-4 flex w-full max-w-xs flex-col rounded-lg bg-white/95 p-2 sm:max-w-sm"
+	>
 		<summary class="cursor-pointer">customize pattern</summary>
 		<label>
 			<span>background color: {bgColor}</span>

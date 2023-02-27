@@ -1,38 +1,9 @@
-# create-svelte
+# svg background generator
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+## quick rundown
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+- The application is hosted at https://josho.dev/svg-bgs.
+- The backgrounds are implemented using [svg pattern elements](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Patterns)
+- The svgs have a viewBox of `0 0 1 1`. In other words, the aspect ratio is 1/1.
+- The svgs are intended to be used as backgrounds so a width nor height is specified.
+- This is a work-in-progress. if you have suggestions, please open a github issue.

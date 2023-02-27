@@ -8,7 +8,7 @@
 	let fgColor = '#f9f06b';
 </script>
 
-<main style:background-color={bgColor} class="relative">
+<main style:background-color={bgColor} class="relative flex min-h-screen flex-col justify-center">
 	<SVG {scale} {rotation} {fgColor} {bgColor} {skewX} {skewY} />
 	<details
 		class="absolute top-4 right-4 flex w-full max-w-xs flex-col rounded-lg bg-white/95 p-2 sm:max-w-sm"
@@ -39,10 +39,10 @@
 			<input bind:value={skewY} min={0} max={90} type="range" />
 		</label>
 	</details>
-	<footer class="fixed bottom-4 right-4 rounded-lg bg-white/95 p-2">
-		<a class="underline" href="https://josho.dev">josho.dev</a>
-	</footer>
 </main>
+<footer class="fixed bottom-4 right-4 rounded-lg bg-white/95 p-2">
+	<a class="underline" href="https://josho.dev">josho.dev</a>
+</footer>
 
 <style lang="postcss">
 	input[type='color'] {

@@ -8,6 +8,14 @@
 	let fgColor = '#f9f06b';
 </script>
 
+<svelte:head>
+	<title>svg pattern creator</title>
+	<meta
+		name="description"
+		content="An svg pattern creator. Apply scale, skew, and rotation transformations to generate interesting patterns."
+	/>
+</svelte:head>
+
 <main style:background-color={bgColor} class="relative flex min-h-screen flex-col justify-center">
 	<SVG {scale} {rotation} {fgColor} {bgColor} {skewX} {skewY} />
 	<details

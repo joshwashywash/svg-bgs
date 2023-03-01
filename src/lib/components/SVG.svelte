@@ -5,6 +5,7 @@
 	export let skewY = 0;
 	export let fgColor = 'black';
 	export let bgColor = 'white';
+	export let svg: SVGGElement;
 
 	const points = [
 		[0, 0],
@@ -14,7 +15,7 @@
 	].map((p) => p.map((xy) => `${100 * xy}%`));
 </script>
 
-<svg viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg">
+<svg bind:this={svg} viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg">
 	<defs>
 		<pattern
 			width="100%"

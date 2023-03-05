@@ -10,4 +10,5 @@ Create svgs from a handful of patterns and transformations.
 - The svgs are intended to be used as backgrounds so `width` and `height` are not specified.
 - This is a work-in-progress. If you have suggestions, please open a github issue.
 
-![example pattern](./static/example.svg)
+![polkadots pattern](./static/examples/polkadots.svg)
+![waves pattern](./static/examples/waves.svg)

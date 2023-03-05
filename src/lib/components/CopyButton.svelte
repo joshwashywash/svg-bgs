@@ -1,6 +1,6 @@
 <button
 	on:click
-	class="rounded-lg bg-yellow-200 px-4 py-2 hover:bg-yellow-300 motion-safe:active:animate-wiggle"
+	class="rounded-lg bg-black px-4 py-2 text-white hover:bg-gray-600 motion-safe:active:animate-wiggle"
 >
 	<svg
 		xmlns="http://www.w3.org/2000/svg"

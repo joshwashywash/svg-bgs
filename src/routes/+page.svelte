@@ -31,7 +31,7 @@
 		<svelte:component this={pattern.component} slot="pattern" />
 	</SVG>
 	<details
-		class="absolute top-4 right-4 w-full max-w-xs space-y-4 rounded-lg bg-white/95 p-2 sm:max-w-sm"
+		class="absolute inset-x-4 top-4 space-y-4 rounded-lg border-2 border-black bg-white/95 p-2 sm:right-4 sm:max-w-sm"
 	>
 		<summary class="cursor-pointer">customize pattern</summary>
 		<fieldset class="flex flex-col gap-2">
@@ -101,7 +101,7 @@
 		</div>
 	</details>
 </main>
-<footer class="fixed bottom-4 right-4 rounded-lg bg-white/95 p-2">
+<footer class="fixed bottom-4 left-4 rounded-lg bg-white/95 p-2">
 	<a class="underline" href="https://josho.dev">josho.dev</a>
 </footer>
 

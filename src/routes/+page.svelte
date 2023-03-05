@@ -64,11 +64,11 @@
 				<input bind:value={rotation} min={0} max={360} type="range" />
 			</label>
 			<label>
-				<span>skewX: {skewX}</span>
+				<span>horizontal skew: {skewX}</span>
 				<input bind:value={skewX} min={0} max={90} type="range" />
 			</label>
 			<label>
-				<span>skewY: {skewY}</span>
+				<span>vertical skew: {skewY}</span>
 				<input bind:value={skewY} min={0} max={90} type="range" />
 			</label>
 		</fieldset>

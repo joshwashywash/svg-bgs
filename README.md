@@ -1,6 +1,6 @@
 # svg pattern creator
 
-![example pattern](./static/example.svg)
+Create svgs from a handful of patterns and transformations.
 
 ## quick rundown
 
@@ -9,3 +9,5 @@
 - The svgs have a viewBox of `0 0 1 1`. In other words, the aspect ratio is 1/1.
 - The svgs are intended to be used as backgrounds so `width` and `height` are not specified.
 - This is a work-in-progress. If you have suggestions, please open a github issue.
+
+![example pattern](./static/example.svg)

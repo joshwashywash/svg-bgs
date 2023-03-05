@@ -57,7 +57,7 @@
 			</label>
 			<label>
 				<span>scale: {scale}</span>
-				<input bind:value={scale} min={0.1} max={1} step={0.01} type="range" />
+				<input bind:value={scale} min={0.01} max={1} step={0.01} type="range" />
 			</label>
 			<label>
 				<span>rotation: {rotation}</span>

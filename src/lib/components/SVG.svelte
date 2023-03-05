@@ -5,14 +5,10 @@
 	export let skewY = 0;
 	export let fgColor = 'black';
 	export let bgColor = 'white';
-	export let svg: SVGGElement;
+	export let strokeWidth = 1;
 
-	const points = [
-		[0, 0],
-		[1, 0],
-		[1, 1],
-		[0, 1]
-	].map((p) => p.map((xy) => `${100 * xy}%`));
+	$: _strokeWidth = `${strokeWidth}%`;
+	export let svg: SVGGElement;
 </script>
 
 <svg bind:this={svg} viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg">
@@ -25,10 +21,8 @@
 			patternTransform="scale({scale}) rotate({rotation}) skewX({skewX}) skewY({skewY})"
 		>
 			<rect width="100%" height="100%" fill={bgColor} />
-			<g fill={fgColor}>
-				{#each points as [cx, cy]}
-					<circle {cx} {cy} r="25%" />
-				{/each}
+			<g fill={fgColor} stroke={fgColor} stroke-width={_strokeWidth}>
+				<slot name="pattern" />
 			</g>
 		</pattern>
 	</defs>

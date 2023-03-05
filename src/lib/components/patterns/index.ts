@@ -1,11 +1,11 @@
-import NinjaStar from './NinjaStar.svelte';
+import NinjaStars from './NinjaStars.svelte';
 import PolkaDots from './PolkaDots.svelte';
-import Spiral from './Spiral.svelte';
+import Spirals from './Spirals.svelte';
 import Waves from './Waves.svelte';
 
 export const patterns = [
-	{ name: 'ninja star', component: NinjaStar },
+	{ name: 'ninja stars', component: NinjaStars },
 	{ name: 'polka dots', component: PolkaDots },
-	{ name: 'spiral', component: Spiral },
+	{ name: 'spirals', component: Spirals },
 	{ name: 'waves', component: Waves },
 ];

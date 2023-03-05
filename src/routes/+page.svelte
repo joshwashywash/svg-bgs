@@ -95,7 +95,7 @@
 					}}
 					class="grow text-center"
 				>
-					pattern copied to clipboard!
+					svg copied to clipboard!
 				</p>
 			{/if}
 		</div>

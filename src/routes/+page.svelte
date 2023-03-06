@@ -36,7 +36,7 @@
 		<summary class="cursor-pointer">customize pattern</summary>
 		<fieldset class="flex flex-col gap-2">
 			<label>
-				<span>pattern</span>
+				pattern
 				<select bind:value={pattern}>
 					{#each patterns as pattern}
 						<option value={pattern}>{pattern.name}</option>
@@ -44,31 +44,31 @@
 				</select>
 			</label>
 			<label>
-				<span>background color: {bgColor}</span>
+				background color: {bgColor}
 				<input bind:value={bgColor} type="color" />
 			</label>
 			<label>
-				<span>foreground color: {fgColor}</span>
+				foreground color: {fgColor}
 				<input bind:value={fgColor} type="color" />
 			</label>
 			<label>
-				<span>stroke width: {strokeWidth}</span>
+				stroke width: {strokeWidth}
 				<input bind:value={strokeWidth} type="range" min={0} max={50} />
 			</label>
 			<label>
-				<span>scale: {scale}</span>
+				scale: {scale}
 				<input bind:value={scale} min={0.01} max={1} step={0.01} type="range" />
 			</label>
 			<label>
-				<span>rotation: {rotation}</span>
+				rotation: {rotation}
 				<input bind:value={rotation} min={0} max={360} type="range" />
 			</label>
 			<label>
-				<span>horizontal skew: {skewX}</span>
+				horizontal skew: {skewX}
 				<input bind:value={skewX} min={0} max={90} type="range" />
 			</label>
 			<label>
-				<span>vertical skew: {skewY}</span>
+				vertical skew: {skewY}
 				<input bind:value={skewY} min={0} max={90} type="range" />
 			</label>
 		</fieldset>

@@ -21,7 +21,7 @@
 			patternTransform="scale({scale}) rotate({rotation}) skewX({skewX}) skewY({skewY})"
 		>
 			<rect width="100%" height="100%" fill={bgColor} />
-			<g fill={fgColor} stroke={fgColor} stroke-width={_strokeWidth}>
+			<g fill={fgColor} stroke={fgColor} stroke-linecap="round" stroke-width={_strokeWidth}>
 				<slot name="pattern" />
 			</g>
 		</pattern>

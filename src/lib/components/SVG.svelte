@@ -6,12 +6,14 @@
 	export let fgColor = 'black';
 	export let bgColor = 'white';
 	export let strokeWidth = 1;
+	export let fill = false;
+	export let d: string;
 
 	$: _strokeWidth = `${strokeWidth}%`;
 	export let svg: SVGGElement;
 </script>
 
-<svg bind:this={svg} viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg" bind:this={svg}>
 	<defs>
 		<pattern
 			width="100%"
@@ -21,9 +23,13 @@
 			patternTransform="scale({scale}) rotate({rotation}) skewX({skewX}) skewY({skewY})"
 		>
 			<rect width="100%" height="100%" fill={bgColor} />
-			<g fill={fgColor} stroke={fgColor} stroke-linecap="round" stroke-width={_strokeWidth}>
-				<slot name="pattern" />
-			</g>
+			<path
+				stroke={fgColor}
+				stroke-linecap="round"
+				fill={fill ? fgColor : 'none'}
+				stroke-width={_strokeWidth}
+				{d}
+			/>
 		</pattern>
 	</defs>
 	<rect width="100%" height="100%" fill="url(#pattern)" />

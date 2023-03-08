@@ -87,7 +87,6 @@
 				vertical skew: {skewY}
 				<input bind:value={skewY} min={0} max={90} type="range" />
 			</label>
-			<textarea bind:value={d} placeholder="enter your own path pattern" />
 		</fieldset>
 		<div class="flex items-center">
 			<CopyButton

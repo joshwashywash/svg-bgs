@@ -11,6 +11,9 @@
 	let rotation = 60;
 	let skewX = 0;
 	let skewY = 0;
+	let checked = false;
+
+	let own = 'm0 0h1v1h-1v-1';
 
 	let svg: SVGSVGElement;
 
@@ -39,7 +42,18 @@
 </svelte:head>
 
 <main style:background-color={bgColor} class="relative flex min-h-screen flex-col justify-center">
-	<SVG bind:svg {scale} {rotation} {fgColor} {bgColor} {skewX} {skewY} {strokeWidth} {fill} {d} />
+	<SVG
+		bind:svg
+		{scale}
+		{rotation}
+		{fgColor}
+		{bgColor}
+		{skewX}
+		{skewY}
+		{strokeWidth}
+		{fill}
+		d={checked ? own : d}
+	/>
 
 	<details
 		class="absolute inset-x-4 top-4 space-y-4 rounded-lg border-2 border-black bg-white/95 p-2 sm:right-4 sm:max-w-sm"
@@ -87,7 +101,15 @@
 				vertical skew: {skewY}
 				<input bind:value={skewY} min={0} max={90} type="range" />
 			</label>
+			<label>
+				use your own path
+				<input bind:checked type="checkbox" />
+			</label>
+			{#if checked}
+				<textarea class="p-1" bind:value={own} placeholder="path data..." />
+			{/if}
 		</fieldset>
+
 		<div class="flex items-center">
 			<CopyButton
 				on:click={() => {

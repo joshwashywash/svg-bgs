@@ -2,6 +2,7 @@
 	import CopyButton from '$lib/components/CopyButton.svelte';
 	import SVG from '$lib/components/SVG.svelte';
 	import { fly } from 'svelte/transition';
+	import patterns from '$lib/patterns.json';
 
 	let bgColor = '#99c1f1';
 	let fgColor = '#f9f06b';
@@ -18,17 +19,6 @@
 	let svg: SVGSVGElement;
 
 	let copySuccess = false;
-
-	const patterns: { value: string; name: string }[] = [
-		{ name: 'ninja stars', value: 'm0 0 .5.25.5-.25-.25.5.25.5-.5-.25-.5.25.25-.5-.25-.5' },
-		{ name: 'polka dots', value: 'm.25.5a.25.25 0 00.5 0 .25.25 0 00-.5 0' },
-		{
-			name: 'spirals',
-			value:
-				'm.5.5a.0625.0625 0 00.125 0 .0625.0625 0 00-.25 0 .0625.0625 0 00.375 0 .0625.0625 0 00-.5 0 .0625.0625 0 00.625 0 .0625.0625 0 00-.75 0',
-		},
-		{ name: 'waves', value: 'm-.5.5q.25-.5.5 0t.5 0q.25-.5.5 0t.5 0' },
-	];
 
 	let d = patterns[0].value;
 </script>

@@ -103,7 +103,7 @@
 		</summary>
 		<fieldset class="flex flex-col gap-2">
 			<label>
-				define your own path
+				define your own pattern path
 				<input bind:checked type="checkbox" />
 			</label>
 			{#if checked}

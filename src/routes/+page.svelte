@@ -23,7 +23,7 @@
 
 	let d = patterns[0].value;
 
-	let open = false;
+	let open = true;
 
 	let handle: HTMLSpanElement;
 	let dragging = false;
@@ -62,7 +62,7 @@
 		bind:open
 		class="absolute inset-x-4 top-4 space-y-4 rounded-lg border-2 border-black bg-white/95 p-2 sm:right-4 sm:max-w-sm"
 	>
-		<summary class="grid grid-cols-[2rem,1fr,2rem] justify-items-center" on:click|preventDefault>
+		<summary class="flex" on:click|preventDefault>
 			<button
 				on:click={() => {
 					open = !open;
@@ -80,16 +80,18 @@
 					<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
 				</svg>
 			</button>
-			customize pattern
-			<span bind:this={handle}>
+			<span
+				bind:this={handle}
+				class="flex grow cursor-grab justify-center"
+				class:cursor-grabbing={dragging}
+			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
 					viewBox="0 0 24 24"
 					stroke-width="1.5"
 					stroke="currentColor"
-					class="h-6 w-6 rotate-90 cursor-grab"
-					class:cursor-grabbing={dragging}
+					class="h-6 w-6 rotate-90"
 				>
 					<path
 						stroke-linecap="round"

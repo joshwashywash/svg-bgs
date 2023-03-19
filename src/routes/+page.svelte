@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { draggable } from '@neodrag/svelte';
 	import CopyButton from '$lib/components/CopyButton.svelte';
 	import SVG from '$lib/components/SVG.svelte';
 	import { fly } from 'svelte/transition';
@@ -21,6 +22,11 @@
 	let copySuccess = false;
 
 	let d = patterns[0].value;
+
+	let open = false;
+
+	let handle: HTMLSpanElement;
+	let dragging = false;
 </script>
 
 <svelte:head>
@@ -46,19 +52,71 @@
 	/>
 
 	<details
+		use:draggable={{ handle }}
+		on:neodrag:start={() => {
+			dragging = true;
+		}}
+		on:neodrag:end={() => {
+			dragging = false;
+		}}
+		bind:open
 		class="absolute inset-x-4 top-4 space-y-4 rounded-lg border-2 border-black bg-white/95 p-2 sm:right-4 sm:max-w-sm"
 	>
-		<summary class="cursor-pointer">customize pattern</summary>
+		<summary class="grid grid-cols-[2rem,1fr,2rem] justify-items-center" on:click|preventDefault>
+			<button
+				on:click={() => {
+					open = !open;
+				}}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="h-6 w-6"
+					class:rotate-90={open}
+				>
+					<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+				</svg>
+			</button>
+			customize pattern
+			<span bind:this={handle}>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="h-6 w-6 rotate-90 cursor-grab"
+					class:cursor-grabbing={dragging}
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+					/>
+				</svg>
+			</span>
+		</summary>
 		<fieldset class="flex flex-col gap-2">
 			<label>
-				pattern
-				<select bind:value={d}>
-					<option disabled>select a pattern</option>
-					{#each patterns as { value, name }}
-						<option {value}>{name}</option>
-					{/each}
-				</select>
+				define your own path
+				<input bind:checked type="checkbox" />
 			</label>
+			{#if checked}
+				<textarea class="p-1" bind:value={own} placeholder="path data..." />
+			{:else}
+				<label>
+					pattern
+					<select bind:value={d}>
+						<option disabled>select a pattern</option>
+						{#each patterns as { value, name }}
+							<option {value}>{name}</option>
+						{/each}
+					</select>
+				</label>
+			{/if}
 			<label>
 				background color: {bgColor}
 				<input bind:value={bgColor} type="color" />
@@ -91,13 +149,6 @@
 				vertical skew: {skewY}
 				<input bind:value={skewY} min={0} max={90} type="range" />
 			</label>
-			<label>
-				use your own path
-				<input bind:checked type="checkbox" />
-			</label>
-			{#if checked}
-				<textarea class="p-1" bind:value={own} placeholder="path data..." />
-			{/if}
 		</fieldset>
 
 		<div class="flex items-center">

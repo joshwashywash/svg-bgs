@@ -52,7 +52,7 @@
 	/>
 
 	<details
-		use:draggable={{ handle }}
+		use:draggable={{ bounds: 'body',handle }}
 		on:neodrag:start={() => {
 			dragging = true;
 		}}

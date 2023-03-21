@@ -62,7 +62,7 @@
 		bind:open
 		class="absolute inset-x-4 top-4 space-y-4 rounded-lg border-2 border-black bg-white/95 p-2 sm:right-4 sm:max-w-sm"
 	>
-		<summary class="flex" on:click|preventDefault>
+		<summary class="flex list-none" on:click|preventDefault>
 			<button
 				on:click={() => {
 					open = !open;
@@ -197,5 +197,10 @@
 
 	label {
 		@apply flex items-center justify-between;
+	}
+
+	summary::-webkit-details-marker {
+		content: none;
+		display: none;
 	}
 </style>

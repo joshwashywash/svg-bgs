@@ -4,6 +4,10 @@
 	import SVG from '$lib/components/SVG.svelte';
 	import { fly } from 'svelte/transition';
 	import patterns from '$lib/patterns.json';
+	import burst from '$lib/generators/burst';
+	import { translate } from '$lib/utils';
+
+	patterns.push({ name: 'burst', value: `M${translate(1/2)(1/2)(burst(32)(1/ 3)(1 / 4)).join('L')}Z` });
 
 	let bgColor = '#99c1f1';
 	let fgColor = '#f9f06b';
@@ -52,7 +56,7 @@
 	/>
 
 	<details
-		use:draggable={{ bounds: 'body',handle }}
+		use:draggable={{ bounds: 'body', handle }}
 		on:neodrag:start={() => {
 			dragging = true;
 		}}

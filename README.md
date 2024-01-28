@@ -4,7 +4,7 @@ Create SVGs from a handful of patterns and transformations.
 
 ## quick rundown
 
-- The application is hosted at https://josho.dev/svg-patterns.
+- https://josho.dev/svg-patterns.
 - The patterns are implemented using [SVG pattern elements](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Patterns).
 - The SVGs have a viewBox of `0 0 1 1`. In other words, the aspect ratio is 1/1.
 - The SVGs are intended to be used as backgrounds so `width` and `height` are not specified. If you need to limit the size of the SVG, you can always add explicit dimensions after copying it.

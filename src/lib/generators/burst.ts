@@ -1,4 +1,7 @@
-import type { Point } from '$lib/types';
+type Point = {
+	x: number;
+	y: number;
+};
 
 export default (count: number) =>
 	(inner: number) =>
@@ -10,7 +13,7 @@ export default (count: number) =>
 		for (let i = 0; i < count; i += 1) {
 			const scale = scales[i % scales.length];
 			const a = i * angle;
-			positions.push([scale * Math.cos(a), scale * Math.sin(a)]);
+			positions.push({ x: scale * Math.cos(a), y: scale * Math.sin(a) });
 		}
 		return positions;
 	};

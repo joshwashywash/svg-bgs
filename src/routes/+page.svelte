@@ -3,7 +3,6 @@
 		Button,
 		Checkbox,
 		Color,
-		Element,
 		Folder,
 		List,
 		Pane,
@@ -30,10 +29,7 @@
 		: data.svg.path.premade.paths[data.svg.path.premade.value];
 
 	let svg: SVGSVGElement;
-
-	type CopyState = 'idle' | 'failure' | 'success';
-
-	let copyState: CopyState = 'idle';
+	let copying = false;
 </script>
 
 <Pane position="draggable" title="Config">
@@ -114,33 +110,39 @@
 	</Folder>
 	<Separator />
 	<Button
+		disabled={copying}
 		title="copy svg to clipboard"
 		on:click={() => {
 			if (svg !== undefined) {
-				navigator.clipboard.writeText(svg.outerHTML).then(() => {});
+				copying = true;
+				navigator.clipboard.writeText(svg.outerHTML).finally(() => {
+					copying = false;
+				});
 			}
 		}}
 	/>
 </Pane>
 
-<svg bind:this={svg} height="100%" viewBox="0 0 1 1">
-	<defs>
-		<pattern
-			width="100%"
-			height="100%"
-			id={patternId}
-			patternUnits={data.svg.miscellaneous.patternUnit.value}
-			{patternTransform}
-		>
-			<rect width="100%" height="100%" fill={bgColor} />
-			<path
-				stroke-width={strokeWidth}
-				stroke={fgColor}
-				{d}
-				stroke-linecap={data.svg.stroke.lineCap.value}
-				fill={data.svg.color.fill.value ? fgColor : 'none'}
-			/>
-		</pattern>
-	</defs>
-	<rect width="100%" height="100%" fill={`url(#${patternId})`} />
-</svg>
+<div class="h-screen overflow-hidden">
+	<svg viewBox="0 0 1 1" bind:this={svg}>
+		<defs>
+			<pattern
+				width="100%"
+				height="100%"
+				id={patternId}
+				patternUnits={data.svg.miscellaneous.patternUnit.value}
+				{patternTransform}
+			>
+				<rect width="100%" height="100%" fill={bgColor} />
+				<path
+					stroke-width={strokeWidth}
+					stroke={fgColor}
+					{d}
+					stroke-linecap={data.svg.stroke.lineCap.value}
+					fill={data.svg.color.fill.value ? fgColor : 'none'}
+				/>
+			</pattern>
+		</defs>
+		<rect width="100%" height="100%" fill={`url(#${patternId})`} />
+	</svg>
+</div>

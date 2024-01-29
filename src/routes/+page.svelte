@@ -1,10 +1,13 @@
 <script lang="ts">
 	import {
+		Button,
 		Checkbox,
 		Color,
+		Element,
 		Folder,
 		List,
 		Pane,
+		Separator,
 		Slider,
 		Textarea
 	} from 'svelte-tweakpane-ui';
@@ -25,6 +28,12 @@
 	$: d = useCustomPath
 		? data.svg.path.custom.value
 		: data.svg.path.premade.paths[data.svg.path.premade.value];
+
+	let svg: SVGSVGElement;
+
+	type CopyState = 'idle' | 'failure' | 'success';
+
+	let copyState: CopyState = 'idle';
 </script>
 
 <Pane position="draggable" title="Config">
@@ -103,31 +112,35 @@
 			options={data.svg.miscellaneous.patternUnit.options}
 		/>
 	</Folder>
+	<Separator />
+	<Button
+		title="copy svg to clipboard"
+		on:click={() => {
+			if (svg !== undefined) {
+				navigator.clipboard.writeText(svg.outerHTML).then(() => {});
+			}
+		}}
+	/>
 </Pane>
 
-<div class="max-h-screen h-full overflow-y-hidden">
-	<svg height="100%" viewBox="0 0 1 1">
-		<defs>
-			<pattern
-				width="100%"
-				height="100%"
-				id={patternId}
-				patternUnits={data.svg.miscellaneous.patternUnit.value}
-				{patternTransform}
-			>
-				<rect width="100%" height="100%" fill={bgColor} />
-				<path
-					stroke-width={strokeWidth}
-					stroke={fgColor}
-					{d}
-					stroke-linecap={data.svg.stroke.lineCap.value}
-					fill={data.svg.color.fill.value ? fgColor : 'none'}
-				/>
-			</pattern>
-		</defs>
-		<rect width="100%" height="100%" fill={`url(#${patternId})`} />
-	</svg>
-	<footer class="fixed bottom-4 left-4 rounded-lg bg-white p-2">
-		<a class="underline" href="https://josho.dev">josho.dev</a>
-	</footer>
-</div>
+<svg bind:this={svg} height="100%" viewBox="0 0 1 1">
+	<defs>
+		<pattern
+			width="100%"
+			height="100%"
+			id={patternId}
+			patternUnits={data.svg.miscellaneous.patternUnit.value}
+			{patternTransform}
+		>
+			<rect width="100%" height="100%" fill={bgColor} />
+			<path
+				stroke-width={strokeWidth}
+				stroke={fgColor}
+				{d}
+				stroke-linecap={data.svg.stroke.lineCap.value}
+				fill={data.svg.color.fill.value ? fgColor : 'none'}
+			/>
+		</pattern>
+	</defs>
+	<rect width="100%" height="100%" fill={`url(#${patternId})`} />
+</svg>

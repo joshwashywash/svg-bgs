@@ -15,6 +15,7 @@
 <meta name="description" content={$page.data.page.description} />
 
 {@render children?.()}
+
 <footer class="fixed bottom-4 left-4 rounded-lg bg-white p-2">
 	<a class="underline" href="https://josho.dev">josho.dev</a>
 </footer>

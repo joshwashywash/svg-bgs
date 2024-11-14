@@ -2,7 +2,7 @@ import type { ColorValue, ListOptions } from 'svelte-tweakpane-ui';
 import type { PageLoad } from './$types';
 
 type Pattern = 'ninja stars' | 'polka dots' | 'spirals' | 'waves';
-type PatternUnit = 'userSpaceOnUse' | 'objectBoundingBox';
+type PatternUnits = 'userSpaceOnUse' | 'objectBoundingBox';
 type StrokeLineCap = 'butt' | 'round' | 'square';
 
 type Page = {
@@ -39,10 +39,10 @@ type SVG = {
 		};
 	};
 	miscellaneous: {
-		patternUnit: {
-			label: 'pattern unit';
-			options: ListOptions<PatternUnit>;
-			value: PatternUnit;
+		patternUnits: {
+			label: 'pattern units';
+			options: ListOptions<PatternUnits>;
+			value: PatternUnits;
 		};
 	};
 	stroke: {
@@ -154,8 +154,8 @@ export const load: PageLoad = (): Data => {
 				}
 			},
 			miscellaneous: {
-				patternUnit: {
-					label: 'pattern unit',
+				patternUnits: {
+					label: 'pattern units',
 					options: {
 						objectBoundingBox: 'objectBoundingBox',
 						userSpaceOnUse: 'userSpaceOnUse'

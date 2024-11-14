@@ -13,40 +13,62 @@
 
 	let { data = $bindable() } = $props();
 
+	let premade = $state(data.svg.path.premade.value);
+	let premadePath = $derived(data.svg.path.premade.paths[premade]);
+
+	// colors
+	let bgColor = $state(`${data.svg.color.background.value}`);
+	let fgColor = $state(`${data.svg.color.foreground.value}`);
+	let _fill = $state(data.svg.color.fill.value);
+	let fill = $derived(_fill ? fgColor : 'none');
+
+	// stroke
+	let strokeWidth = $state(data.svg.stroke.width.value);
+	let strokeWidthPercent = $derived(`${strokeWidth}%`);
+	let lineCap = $state(data.svg.stroke.lineCap.value);
+
+	// transform
+	let scale = $state(data.svg.transformation.scale.value);
+	let rotation = $state(data.svg.transformation.rotation.value);
+	let skewX = $state(data.svg.transformation.skewX.value);
+	let skewY = $state(data.svg.transformation.skewY.value);
+
+	// miscellaneous
+	let patternUnits = $state(data.svg.miscellaneous.patternUnits.value);
+
 	let patternTransform = $derived(
-		`scale(${data.svg.transformation.scale.value}) rotate(${data.svg.transformation.rotation.value}) skewX(${data.svg.transformation.skewX.value}) skewY(${data.svg.transformation.skewY.value})`
+		`scale(${scale}) rotate(${rotation}) skewX(${skewX}) skewY(${skewY})`
 	);
-
-	let bgColor = $derived(`${data.svg.color.background.value}`);
-	let fgColor = $derived(`${data.svg.color.foreground.value}`);
-
-	let strokeWidth = $derived(`${data.svg.stroke.width.value}%`);
 
 	const patternId = 'pattern';
 
 	let useCustomPath = $state(false);
 
-	let d = $derived(
-		useCustomPath
-			? data.svg.path.custom.value
-			: data.svg.path.premade.paths[data.svg.path.premade.value]
-	);
+	let customPath = $state(data.svg.path.custom.value);
+
+	let d = $derived(useCustomPath ? customPath : premadePath);
 
 	let svg: SVGSVGElement | null = $state(null);
 	let copying = $state(false);
 </script>
 
-<Pane position="draggable" title="Config">
+<Pane
+	position="draggable"
+	title="Config"
+>
 	<Folder title={data.titles.path}>
-		<Checkbox bind:value={useCustomPath} label="use custom path" />
+		<Checkbox
+			bind:value={useCustomPath}
+			label="use custom path"
+		/>
 		{#if useCustomPath}
 			<Textarea
-				bind:value={data.svg.path.custom.value}
+				bind:value={customPath}
 				placeholder="your svg path goes here"
 			/>
 		{:else}
 			<List
-				bind:value={data.svg.path.premade.value}
+				bind:value={premade}
 				options={data.svg.path.premade.options}
 				label={data.svg.path.premade.label}
 			/>
@@ -54,52 +76,52 @@
 	</Folder>
 	<Folder title={data.titles.color}>
 		<Color
-			bind:value={data.svg.color.foreground.value}
+			bind:value={fgColor}
 			label={data.svg.color.foreground.label}
 		/>
 		<Color
-			bind:value={data.svg.color.background.value}
+			bind:value={bgColor}
 			label={data.svg.color.background.label}
 		/>
 		<Checkbox
-			bind:value={data.svg.color.fill.value}
+			bind:value={_fill}
 			label={data.svg.color.fill.label}
 		/>
 	</Folder>
 	<Folder title={data.titles.stroke}>
 		<Slider
-			bind:value={data.svg.stroke.width.value}
+			bind:value={strokeWidth}
 			label={data.svg.stroke.width.label}
 			max={data.svg.stroke.width.max}
 			min={data.svg.stroke.width.min}
 		/>
 		<List
-			bind:value={data.svg.stroke.lineCap.value}
+			bind:value={lineCap}
 			label={data.svg.stroke.lineCap.label}
 			options={data.svg.stroke.lineCap.options}
 		/>
 	</Folder>
 	<Folder title={data.titles.transformation}>
 		<Slider
-			bind:value={data.svg.transformation.scale.value}
+			bind:value={scale}
 			label={data.svg.transformation.scale.label}
 			max={data.svg.transformation.scale.max}
 			min={data.svg.transformation.scale.min}
 		/>
 		<Slider
-			bind:value={data.svg.transformation.rotation.value}
+			bind:value={rotation}
 			label={data.svg.transformation.rotation.label}
 			max={data.svg.transformation.rotation.max}
 			min={data.svg.transformation.rotation.min}
 		/>
 		<Slider
-			bind:value={data.svg.transformation.skewX.value}
+			bind:value={skewX}
 			label={data.svg.transformation.skewX.label}
 			max={data.svg.transformation.skewX.max}
 			min={data.svg.transformation.skewX.min}
 		/>
 		<Slider
-			bind:value={data.svg.transformation.skewY.value}
+			bind:value={skewY}
 			label={data.svg.transformation.skewY.label}
 			max={data.svg.transformation.skewY.max}
 			min={data.svg.transformation.skewY.min}
@@ -107,9 +129,9 @@
 	</Folder>
 	<Folder title={data.titles.miscellaneous}>
 		<List
-			bind:value={data.svg.miscellaneous.patternUnit.value}
-			label={data.svg.miscellaneous.patternUnit.label}
-			options={data.svg.miscellaneous.patternUnit.options}
+			bind:value={patternUnits}
+			label={data.svg.miscellaneous.patternUnits.label}
+			options={data.svg.miscellaneous.patternUnits.options}
 		/>
 	</Folder>
 	<Separator />
@@ -117,38 +139,47 @@
 		disabled={copying}
 		title="copy svg to clipboard"
 		on:click={() => {
-			if (svg !== undefined) {
+			if (svg !== null) {
 				copying = true;
-				if (svg !== null) {
-					navigator.clipboard.writeText(svg.outerHTML).finally(() => {
-						copying = false;
-					});
-				}
+				navigator.clipboard.writeText(svg.outerHTML).finally(() => {
+					copying = false;
+				});
 			}
 		}}
 	/>
 </Pane>
 
 <div class="h-screen overflow-hidden">
-	<svg viewBox="0 0 1 1" bind:this={svg}>
+	<svg
+		viewBox="0 0 1 1"
+		bind:this={svg}
+	>
 		<defs>
 			<pattern
 				width="100%"
 				height="100%"
 				id={patternId}
-				patternUnits={data.svg.miscellaneous.patternUnit.value}
+				{patternUnits}
 				{patternTransform}
 			>
-				<rect width="100%" height="100%" fill={bgColor} />
+				<rect
+					width="100%"
+					height="100%"
+					fill={bgColor}
+				/>
 				<path
-					stroke-width={strokeWidth}
+					stroke-width={strokeWidthPercent}
 					stroke={fgColor}
 					{d}
-					stroke-linecap={data.svg.stroke.lineCap.value}
-					fill={data.svg.color.fill.value ? fgColor : 'none'}
+					stroke-linecap={lineCap}
+					{fill}
 				/>
 			</pattern>
 		</defs>
-		<rect width="100%" height="100%" fill={`url(#${patternId})`} />
+		<rect
+			width="100%"
+			height="100%"
+			fill={`url(#${patternId})`}
+		/>
 	</svg>
 </div>

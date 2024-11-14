@@ -33,5 +33,10 @@
 	"dependencies": {
 		"@sveltejs/adapter-static": "^3.0.6",
 		"svelte-tweakpane-ui": "^1.2.3"
+	},
+	"pnpm": {
+		"overrides": {
+			"cookie@<0.7.0": ">=0.7.0"
+		}
 	}
 }

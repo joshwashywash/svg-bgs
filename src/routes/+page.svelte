@@ -11,25 +11,29 @@
 		Textarea
 	} from 'svelte-tweakpane-ui';
 
-	export let data;
+	let { data = $bindable() } = $props();
 
-	$: patternTransform = `scale(${data.svg.transformation.scale.value}) rotate(${data.svg.transformation.rotation.value}) skewX(${data.svg.transformation.skewX.value}) skewY(${data.svg.transformation.skewY.value})`;
+	let patternTransform = $derived(
+		`scale(${data.svg.transformation.scale.value}) rotate(${data.svg.transformation.rotation.value}) skewX(${data.svg.transformation.skewX.value}) skewY(${data.svg.transformation.skewY.value})`
+	);
 
-	$: bgColor = `${data.svg.color.background.value}`;
-	$: fgColor = `${data.svg.color.foreground.value}`;
+	let bgColor = $derived(`${data.svg.color.background.value}`);
+	let fgColor = $derived(`${data.svg.color.foreground.value}`);
 
-	$: strokeWidth = `${data.svg.stroke.width.value}%`;
+	let strokeWidth = $derived(`${data.svg.stroke.width.value}%`);
 
 	const patternId = 'pattern';
 
-	let useCustomPath = false;
+	let useCustomPath = $state(false);
 
-	$: d = useCustomPath
-		? data.svg.path.custom.value
-		: data.svg.path.premade.paths[data.svg.path.premade.value];
+	let d = $derived(
+		useCustomPath
+			? data.svg.path.custom.value
+			: data.svg.path.premade.paths[data.svg.path.premade.value]
+	);
 
-	let svg: SVGSVGElement;
-	let copying = false;
+	let svg: SVGSVGElement | null = $state(null);
+	let copying = $state(false);
 </script>
 
 <Pane position="draggable" title="Config">
@@ -115,9 +119,11 @@
 		on:click={() => {
 			if (svg !== undefined) {
 				copying = true;
-				navigator.clipboard.writeText(svg.outerHTML).finally(() => {
-					copying = false;
-				});
+				if (svg !== null) {
+					navigator.clipboard.writeText(svg.outerHTML).finally(() => {
+						copying = false;
+					});
+				}
 			}
 		}}
 	/>
